@@ -1,13 +1,20 @@
 package com.example.coursesystem.fxControllers;
 
+import com.example.coursesystem.Program;
 import com.example.coursesystem.appClasses.*;
 import com.example.coursesystem.dataStructures.Course;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Array;
 import java.sql.SQLException;
@@ -21,9 +28,6 @@ public class ManagedCoursesController implements Initializable {
     public Button btnEditRights;
     public Button btnRemoveCourse;
     public Button btnEditCourse;
-
-    public void editUserRights(ActionEvent actionEvent) {
-    }
 
     public void removeCourse(ActionEvent actionEvent) {
         if (selectedCourse != null) {
@@ -40,11 +44,6 @@ public class ManagedCoursesController implements Initializable {
         }
     }
 
-    public void editCourse(ActionEvent actionEvent) {
-    }
-
-    public void createCourse(ActionEvent actionEvent) {
-    }
 
     public void refreshCourses(ActionEvent actionEvent) {
         managedCourses.clearTree();
@@ -102,6 +101,75 @@ public class ManagedCoursesController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         loadManagedCourses();
+    }
+
+    public void editUserRights(ActionEvent actionEvent) throws IOException {
+
+//        if (selectedCourse != null) {
+//
+//
+//            //ČIA ĮTERPTI VARTOTOJO TEISIŲ VALDYMO LANGO FXML FAILO PAVADINIMĄ
+//            FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("----------------------------"));
+//
+//
+//            Parent root = fxmlLoader.load();
+//
+//            //ČIA ĮTERPTI LANGO KONTROLERIO KLASĖS PAVADINIMĄ
+//            ((-------------) fxmlLoader.getController()).initData(selectedCourse);
+//
+//
+//            Stage stage = new Stage();
+//            stage.setTitle("Edit user rights");
+//            stage.setResizable(true);
+//            stage.setScene(new Scene(root));
+//            stage.initModality(Modality.APPLICATION_MODAL);
+//            stage.showAndWait();
+//            refreshCourses(null);
+//        }
+
+    }
+
+    public void editCourse(ActionEvent actionEvent)  throws IOException {
+
+//        if (selectedCourse != null) {
+//
+//            //ČIA ĮTERPTI VARTOTOJO TEISIŲ VALDYMO LANGO FXML FAILO PAVADINIMĄ
+//            FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("--------------------"));
+//
+//
+//            Parent root = fxmlLoader.load();
+//
+//            //ČIA ĮTERPTI LANGO KONTROLERIO KLASĖS PAVADINIMĄ
+//            ((-------------------) fxmlLoader.getController()).initData(selectedCourse);
+//
+//
+//            Stage stage = new Stage();
+//            stage.setTitle("Edit course");
+//            stage.setResizable(true);
+//            stage.setScene(new Scene(root));
+//            stage.initModality(Modality.APPLICATION_MODAL);
+//            stage.showAndWait();
+//
+//            refreshCourses(null);
+//        }
+
+    }
+
+    public void createCourse(ActionEvent actionEvent) throws IOException {
+
+//        //ČIA ĮTERPTI VARTOTOJO TEISIŲ VALDYMO LANGO FXML FAILO PAVADINIMĄ
+//        FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("createCourse-view.fxml"));
+//
+//
+//        Parent root = fxmlLoader.load();
+//        Stage stage = new Stage();
+//        stage.setTitle("Create course");
+//        stage.setResizable(false);
+//        stage.setScene(new Scene(root));
+//        stage.initModality(Modality.APPLICATION_MODAL);
+//        stage.showAndWait();
+//        refreshCourses(null);
+
     }
 
 
