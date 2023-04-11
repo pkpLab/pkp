@@ -88,5 +88,20 @@ public class Database {
             closeConnection(con);
         }
     }
+    public boolean userExists(String username) throws SQLException {
+        Connection con = ds.getConnection();
+        try {
+            PreparedStatement stmt = con.prepareStatement("select 1 from users where username = ?");
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } finally {
+            closeConnection(con);
+        }
+    }
 }
 
