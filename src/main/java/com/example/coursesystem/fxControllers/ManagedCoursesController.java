@@ -35,6 +35,13 @@ public class ManagedCoursesController implements Initializable {
     }
 
     public void refreshCourses(ActionEvent actionEvent) {
+        managedCourses.clearTree();
+        try {
+            managedCourses.loadTree(Database.getInstance().getManagedCourses(CurrentUser.getUserId()));
+        } catch (SQLException e) {
+            Messages.showErrorMessage("Error", "Error in database");
+            e.printStackTrace();
+        }
     }
 
     private CourseTree managedCourses;
@@ -82,5 +89,7 @@ public class ManagedCoursesController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         loadManagedCourses();
     }
+
+
 
 }
