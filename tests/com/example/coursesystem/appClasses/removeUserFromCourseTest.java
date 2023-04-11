@@ -7,6 +7,7 @@ import org.mockito.Mock;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,5 +43,23 @@ class removeUserFromCourseTest {
         mockStatement.setInt(2, courseId);
 
         assertFalse(mockStatement.execute());
+    }
+    @Test
+    public void testRemoveUserFromCourseValid() throws SQLException {
+        int userId = 1;
+        int courseId = 3;
+
+        mockStatement = mockConnection.prepareStatement("DELETE FROM user_enrolled_courses WHERE user_id = ? AND course_id = ?");
+        mockStatement.setInt(1, userId);
+        mockStatement.setInt(2, courseId);
+        mockStatement.executeUpdate();
+
+        PreparedStatement selectStmt = mockConnection.prepareStatement("SELECT COUNT(*) FROM user_enrolled_courses WHERE user_id = ? AND course_id = ?");
+        selectStmt.setInt(1, userId);
+        selectStmt.setInt(2, courseId);
+        ResultSet rs = selectStmt.executeQuery();
+        rs.next();
+        int count = rs.getInt(1);
+        assertEquals(0, count);
     }
 }
