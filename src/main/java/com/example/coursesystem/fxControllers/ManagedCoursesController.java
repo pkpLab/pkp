@@ -66,6 +66,16 @@ public class ManagedCoursesController implements Initializable {
             Messages.showErrorMessage("Error", "Error in database");
             e.printStackTrace();
         }
+        colCourse.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures, ObservableValue>) param -> ((TreeDisplayItem) param.getValue().getValue()).nameProperty());
+        twManagedCourses.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            TreeItem<TreeDisplayItem> selectedItem = (TreeItem<TreeDisplayItem>) newValue;
+            if (selectedItem != null) {
+                if (managedCourses.getTreeItemHashtable().get(selectedItem) instanceof Course course) {
+                    selectedCourse = course;
+                    toggleButtons();
+                }
+            }
+        });
 
     }
 
