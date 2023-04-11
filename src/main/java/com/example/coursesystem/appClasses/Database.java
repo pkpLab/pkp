@@ -211,6 +211,17 @@ public class Database {
         }
     }
 
+    public void deleteCourse(int course_id) throws SQLException {
+        Connection con = ds.getConnection();
+        try {
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM courses WHERE course_id = ?");
+            stmt.setInt(1, course_id);
+            stmt.execute();
+        } finally {
+            closeConnection(con);
+        }
+    }
+
 
 
 

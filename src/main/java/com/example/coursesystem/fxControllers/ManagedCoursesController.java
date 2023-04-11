@@ -26,6 +26,18 @@ public class ManagedCoursesController implements Initializable {
     }
 
     public void removeCourse(ActionEvent actionEvent) {
+        if (selectedCourse != null) {
+            if (Messages.showConfirmationDialog("Confirm",
+                    "Are you sure you want to delete course \"" + selectedCourse.getCourseName() + "\" and all its contents?")) {
+                try {
+                    Database.getInstance().deleteCourse(selectedCourse.getCourse_id());
+                    refreshCourses(null);
+                } catch (SQLException e) {
+                    Messages.showErrorMessage("Error", "Error in database");
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void editCourse(ActionEvent actionEvent) {
@@ -42,6 +54,8 @@ public class ManagedCoursesController implements Initializable {
             Messages.showErrorMessage("Error", "Error in database");
             e.printStackTrace();
         }
+        selectedCourse = null;
+        btnEditCourse.setDisable(true);
     }
 
     private CourseTree managedCourses;
