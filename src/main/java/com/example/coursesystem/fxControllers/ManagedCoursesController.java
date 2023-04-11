@@ -1,18 +1,19 @@
 package com.example.coursesystem.fxControllers;
 
-import com.example.coursesystem.appClasses.CourseTree;
-import com.example.coursesystem.appClasses.CurrentUser;
-import com.example.coursesystem.appClasses.Database;
+import com.example.coursesystem.appClasses.*;
 import com.example.coursesystem.dataStructures.Course;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.util.Callback;
 
+import java.net.URL;
+import java.sql.Array;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class ManagedCoursesController {
+public class ManagedCoursesController implements Initializable {
     public TreeTableView twManagedCourses;
     public TreeTableColumn colCourse;
     public TextField txtEnrolledCount;
@@ -56,6 +57,20 @@ public class ManagedCoursesController {
         }
     }
 
+    public void loadManagedCourses() {
+        managedCourses = new CourseTree(twManagedCourses);
+        Array users = null;
+        try {
+            managedCourses.loadTree(Database.getInstance().getManagedCourses(CurrentUser.getUserId()));
+        } catch (SQLException e) {
+            Messages.showErrorMessage("Error", "Error in database");
+            e.printStackTrace();
+        }
 
+    }
+
+    public void initialize(URL location, ResourceBundle resources) {
+        loadManagedCourses();
+    }
 
 }
