@@ -7,15 +7,6 @@ public class User {
     private String last_name;
     private String email;
     private String companyName;
-    private int UserType;
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
 
     public String getLogin() {
         return username;
@@ -63,5 +54,7 @@ public class User {
 
     public void setUserType(int user_id) {
         this.user_id = user_id;
+    }
+    public User() {
     }
 }
