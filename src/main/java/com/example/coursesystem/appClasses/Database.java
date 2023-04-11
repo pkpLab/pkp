@@ -12,7 +12,7 @@ public class Database {
 
     private static Database instance;
 
-    private Database() {
+    protected Database() {
         ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
         ds.setUrl("jdbc:mysql://localhost:3306/coursesystem");
         ds.setUsername("root");
