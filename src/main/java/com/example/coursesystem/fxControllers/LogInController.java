@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
@@ -82,6 +83,18 @@ public class LogInController implements Initializable {
         stage.setScene(new Scene(root));
         ((Stage)this.txtName.getScene().getWindow()).close();
         stage.show();
+    }
+    @FXML
+    public void openRegisterForm(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("register-view.fxml"));
+        Parent root = (Parent)fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Sign up for Course System");
+        stage.setResizable(false);
+        stage.setScene(new Scene(root));
+        ((Node)actionEvent.getSource()).getScene().getWindow().hide();
+        stage.showAndWait();
+        ((Stage)((Node)actionEvent.getSource()).getScene().getWindow()).show();
     }
 
 }
