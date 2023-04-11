@@ -45,16 +45,14 @@ public class LogInController implements Initializable {
             txtPassword.setStyle("-fx-text-box-border: #B22222; -fx-focus-color: #B22222");
             result = false;
         }
-        if (true) {
-            try {
-                result = Database.getInstance().checkLoginInfo(txtName.getText().trim(), txtPassword.getText());
-                if (result) {
-                    Messages.showErrorMessage("Failed to login", "Incorrect login information.");
-                }
-            } catch (SQLException e) {
-                Messages.showErrorMessage("Error", "Error in database");
-                e.printStackTrace();
+        try {
+            result = Database.getInstance().checkLoginInfo(txtName.getText().trim(), txtPassword.getText());
+            if (!result) {
+                Messages.showErrorMessage("Failed to login", "Incorrect login information.");
             }
+        } catch (SQLException e) {
+            Messages.showErrorMessage("Error", "Error in database");
+            e.printStackTrace();
         }
         return result;
     }
