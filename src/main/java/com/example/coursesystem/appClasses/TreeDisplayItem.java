@@ -56,5 +56,8 @@ public class TreeDisplayItem {
     public void addFilesize(long filesize) {
         this.filesize.set(this.filesize.get() + filesize);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/feature-issue-#4-kursu-sarasas
 }

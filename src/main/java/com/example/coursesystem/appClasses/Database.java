@@ -7,8 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Database {
 
@@ -72,75 +70,6 @@ public class Database {
             closeConnection(con);
         }
     }
-    public List<User> getAllUsers() throws SQLException {
-        Connection con = ds.getConnection();
-        try {
-            List<User> users = new ArrayList<>();
-
-            String sql = "SELECT user_id, name, last_name, email FROM users";
-
-            PreparedStatement stmt = con.prepareStatement(sql);
-
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                User user = new User();
-                user.setUser_id(rs.getInt(1));
-                user.setUserName(rs.getString(2));
-                user.setLastName(rs.getString(3));
-                user.setEmail(rs.getString(4));
-                users.add(user);
-            }
-
-            return users;
-        } finally {
-            closeConnection(con);
-        }
-    }
-    public void linkUserAndCourse(int user_id, int course_id) throws SQLException {
-        Connection con = ds.getConnection();
-        try {
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO user_enrolled_courses(user_id, course_id) VALUES(?, ?)");
-            stmt.setInt(1, user_id);
-            stmt.setInt(2, course_id);
-            stmt.execute();
-        } finally {
-            closeConnection(con);
-        }
-    }
-    public List<UserDisplayItem> getUserPrivileges(int course_id, int user_id) throws SQLException {
-        Connection con = ds.getConnection();
-        try {
-            List<UserDisplayItem> userItems = new ArrayList<>();
-
-            String sql = "SELECT u.user_id, name, last_name, company_name, IFNULL(umc.course_id, 0) " +
-                    "FROM users u " +
-                    "LEFT JOIN user_managed_courses umc ON u.user_id = umc.user_id AND umc.course_id = ? " +
-                    "WHERE u.user_id != ?";
-
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, course_id);
-            stmt.setInt(2, user_id);
-
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                UserDisplayItem userItem = new UserDisplayItem();
-                userItem.setUserId(rs.getInt(1));
-                userItem.setName(rs.getString(2));
-                userItem.setSurname(rs.getString(3));
-                userItem.setCompanyName(rs.getString(4));
-                if (rs.getInt(5) > 0) {
-                    userItem.setHasRights(1);
-                } else {
-                    userItem.setHasRights(0);
-                }
-                userItems.add(userItem);
-            }
-
-            return userItems;
-        } finally {
-            closeConnection(con);
-        }
-    }
     public int getUserId(String login, String password) throws SQLException {
         Connection con = ds.getConnection();
         try {
@@ -170,29 +99,6 @@ public class Database {
             } else {
                 return false;
             }
-        } finally {
-            closeConnection(con);
-        }
-    }
-    public void setUserPrivileges(int user_id, int course_id) throws SQLException {
-        Connection con = ds.getConnection();
-        try {
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO user_managed_courses(user_id, course_id) VALUES(?, ?)");
-            stmt.setInt(1, user_id);
-            stmt.setInt(2, course_id);
-            stmt.execute();
-        } finally {
-            closeConnection(con);
-        }
-    }
-
-    public void deleteUserPrivileges(int user_id, int course_id) throws SQLException {
-        Connection con = ds.getConnection();
-        try {
-            PreparedStatement stmt = con.prepareStatement("DELETE FROM user_managed_courses WHERE user_id = ? AND course_id = ?");
-            stmt.setInt(1, user_id);
-            stmt.setInt(2, course_id);
-            stmt.execute();
         } finally {
             closeConnection(con);
         }
