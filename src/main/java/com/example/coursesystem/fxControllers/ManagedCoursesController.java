@@ -92,6 +92,12 @@ public class ManagedCoursesController implements Initializable {
             if (selectedItem != null) {
                 if (managedCourses.getTreeItemHashtable().get(selectedItem) instanceof Course course) {
                     selectedCourse = course;
+                    try {
+                        txtEditRightCount.setText(String.valueOf(Database.getInstance().getEditRightCount(course.getCourse_id())));
+                    } catch (SQLException e) {
+                        Messages.showErrorMessage("Error", "Error in database");
+                        e.printStackTrace();
+                    }
                     toggleButtons();
                 }
             }
