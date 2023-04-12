@@ -222,6 +222,60 @@ public class Database {
         }
     }
 
+    public int getEditRightCount(int course_id) throws SQLException {
+        Connection con = ds.getConnection();
+        try {
+            PreparedStatement stmt = con.prepareStatement("SELECT count(user_id) FROM user_managed_courses WHERE course_id = ?");
+            stmt.setInt(1, course_id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+    public void insertCourse(Course course) throws SQLException {
+        Connection con = ds.getConnection();
+        try {
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO courses(creator_id, name, description," +
+                    " course_length) VALUES (?, ?, ?, ?)");
+            stmt.setInt(1, course.getCreator_id());
+            stmt.setString(2, course.getCourseName());
+            stmt.setString(3, course.getDescription());
+            stmt.setString(4,course.getCourseLength());
+            stmt.execute();
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+    public void setUserPrivileges(int user_id, int course_id) throws SQLException {
+        Connection con = ds.getConnection();
+        try {
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO user_managed_courses(user_id, course_id) VALUES(?, ?)");
+            stmt.setInt(1, user_id);
+            stmt.setInt(2, course_id);
+            stmt.execute();
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+    public void deleteUserPrivileges(int user_id, int course_id) throws SQLException {
+        Connection con = ds.getConnection();
+        try {
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM user_managed_courses WHERE user_id = ? AND course_id = ?");
+            stmt.setInt(1, user_id);
+            stmt.setInt(2, course_id);
+            stmt.execute();
+        } finally {
+            closeConnection(con);
+        }
+    }
+
 
 
 

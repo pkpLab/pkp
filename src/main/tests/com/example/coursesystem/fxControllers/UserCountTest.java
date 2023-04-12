@@ -49,36 +49,35 @@ class UserCountTest {
         db.createUser(manager3, "PasswordUser1!!!");
 
 
-        //course.setCreator_id(db.getUserId("loginMng1", "PasswordUser1!!!"));
+        course.setCreator_id(db.getUserId("loginMng1", "PasswordUser1!!!"));
         course.setCreator_id(0);
         course.setCourseName("testCourse");
         course.setDescription("testDesc");
         course.setCourseLength("2");
-        //db.insertCourse(course); NEAPRAŠYTA FUNKCIJA
+        db.insertCourse(course);
 
         //---------------------------TESTAS-----------------------------------
 
         int[] results = new int[4];
 
-//        NEAPRAŠYTOS FUNKCIJOS
 
-//        db.setUserPrivileges(1, 0);
-//        results[0] = db.getEditRightCount(0); //results[0] turi būti 1
-//
-//        db.setUserPrivileges(2, 0);
-//        results[1] = db.getEditRightCount(0); //results[1] turi būti 2
-//
-//        db.deleteUserPrivileges(1, 0);
-//        results[2] = db.getEditRightCount(0); //results[2] turi būti 1
-//
-//        db.deleteUserPrivileges(2, 0);
-//        results[3] = db.getEditRightCount(0); //results[3] turi būti 0
+        db.setUserPrivileges(1, 0);
+        results[0] = db.getEditRightCount(0); //results[0] turi būti 1
+
+        db.setUserPrivileges(2, 0);
+        results[1] = db.getEditRightCount(0); //results[1] turi būti 2
+
+        db.deleteUserPrivileges(1, 0);
+        results[2] = db.getEditRightCount(0); //results[2] turi būti 1
+
+        db.deleteUserPrivileges(2, 0);
+        results[3] = db.getEditRightCount(0); //results[3] turi būti 0
 
         assertArrayEquals(new int[]{1,2,1,0}, results );
 
 
 
-        //IŠVADA - test "fail", nes neaprašytos reikalingos funkcijos
+        //IŠVADA - testas pereitas; tikėtini rezultatai atitiko tikruosius rezultatus
 
 
 
