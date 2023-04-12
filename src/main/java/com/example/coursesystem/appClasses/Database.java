@@ -72,6 +72,41 @@ public class Database {
             closeConnection(con);
         }
     }
+    public List<User> getAllUsers() throws SQLException {
+        Connection con = ds.getConnection();
+        try {
+            List<User> users = new ArrayList<>();
+
+            String sql = "SELECT user_id, name, last_name, email FROM users";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setUser_id(rs.getInt(1));
+                user.setUserName(rs.getString(2));
+                user.setLastName(rs.getString(3));
+                user.setEmail(rs.getString(4));
+                users.add(user);
+            }
+
+            return users;
+        } finally {
+            closeConnection(con);
+        }
+    }
+    public void linkUserAndCourse(int user_id, int course_id) throws SQLException {
+        Connection con = ds.getConnection();
+        try {
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO user_enrolled_courses(user_id, course_id) VALUES(?, ?)");
+            stmt.setInt(1, user_id);
+            stmt.setInt(2, course_id);
+            stmt.execute();
+        } finally {
+            closeConnection(con);
+        }
+    }
     public List<UserDisplayItem> getUserPrivileges(int course_id, int user_id) throws SQLException {
         Connection con = ds.getConnection();
         try {

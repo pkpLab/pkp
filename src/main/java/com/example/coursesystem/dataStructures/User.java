@@ -8,6 +8,9 @@ public class User {
     private String email;
     private String companyName;
 
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
     public String getLogin() {
         return username;
     }
