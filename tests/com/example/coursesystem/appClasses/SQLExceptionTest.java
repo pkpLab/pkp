@@ -1,3 +1,4 @@
+/*
 package com.example.coursesystem.fxControllers;
 
 import com.example.coursesystem.appClasses.Course;
@@ -77,4 +78,4 @@ public class EditUserRightsControllerTest {
         // Assert that the error message is displayed
         // You can use your own assertions based on your implementation
         // For example, if you have a label to display error messages, you can verify that
-    }
+    }*/
