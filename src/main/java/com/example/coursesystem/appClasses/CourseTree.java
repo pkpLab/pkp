@@ -31,8 +31,8 @@ public class CourseTree {
 
         for (Course course:
                 courses) {
-            TreeItem<TreeDisplayItem> treeItem = new TreeItem<>();
             TreeDisplayItem displayItem = new TreeDisplayItem();
+            TreeItem<TreeDisplayItem> treeItem = new TreeItem<>();
             displayItem.setName(course.getCourseName());
             treeItem.setValue(displayItem);
             treeItemHashtable.put(treeItem, course);
