@@ -1,5 +1,6 @@
 package com.example.coursesystem.appClasses;
 
+import com.example.coursesystem.dataStructures.Course;
 import com.example.coursesystem.dataStructures.User;
 import org.apache.commons.dbcp.BasicDataSource;
 
@@ -136,6 +137,108 @@ public class Database {
             }
 
             return userItems;
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+    public void deleteUserPrivileges(int user_id, int course_id) throws SQLException {
+        Connection con = ds.getConnection();
+        try {
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM user_managed_courses WHERE user_id = ? AND course_id = ?");
+            stmt.setInt(1, user_id);
+            stmt.setInt(2, course_id);
+            stmt.execute();
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+    public void setUserPrivileges(int user_id, int course_id) throws SQLException {
+        Connection con = ds.getConnection();
+        try {
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO user_managed_courses(user_id, course_id) VALUES(?, ?)");
+            stmt.setInt(1, user_id);
+            stmt.setInt(2, course_id);
+            stmt.execute();
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+    public List<Course> getEnrolledCourses(int user_id) throws SQLException {
+        Connection con = ds.getConnection();
+        try {
+            List<Course> courses = new ArrayList<Course>();
+
+            PreparedStatement stmt = con.prepareStatement("SELECT distinct c.course_id, c.creator_id, c.name, c.description" +
+                    ", (select u.username from users u where u.user_id=c.creator_id ) as username, IFNULL(course_length,'Not mentioned')" +
+                    "FROM courses c, user_enrolled_courses uc " +
+                    "WHERE uc.course_id = c.course_id " +
+                    "AND uc.user_id = ?");
+            stmt.setInt(1, user_id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Course course = new Course();
+                course.setCourse_id(rs.getInt(1));
+                course.setCreator_id(rs.getInt(2));
+                course.setCourseName(rs.getString(3));
+                course.setDescription(rs.getString(4));
+                course.setUsername(rs.getString(5));
+                course.setCourseLength(rs.getString(6));
+                courses.add(course);
+            }
+
+            return courses;
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+    public void removeUserFromCourse(int user_id, int course_id) throws SQLException {
+        Connection con = ds.getConnection();
+        try {
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM user_enrolled_courses WHERE user_id = ? AND course_id = ?");
+            stmt.setInt(1, user_id);
+            stmt.setInt(2, course_id);
+            stmt.execute();
+        } finally {
+            closeConnection(con);
+        }
+    }
+    public List<User> getAllUsers() throws SQLException {
+        Connection con = ds.getConnection();
+        try {
+            List<User> users = new ArrayList<>();
+
+            String sql = "SELECT user_id, name, last_name, email FROM users";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setUser_id(rs.getInt(1));
+                user.setUserName(rs.getString(2));
+                user.setLastName(rs.getString(3));
+                user.setEmail(rs.getString(4));
+                users.add(user);
+            }
+
+            return users;
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+
+    public void linkUserAndCourse(int user_id, int course_id) throws SQLException {
+        Connection con = ds.getConnection();
+        try {
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO user_enrolled_courses(user_id, course_id) VALUES(?, ?)");
+            stmt.setInt(1, user_id);
+            stmt.setInt(2, course_id);
+            stmt.execute();
         } finally {
             closeConnection(con);
         }
