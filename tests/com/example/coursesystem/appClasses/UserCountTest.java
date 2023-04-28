@@ -1,13 +1,13 @@
-package com.example.coursesystem.fxControllers;
+package com.example.coursesystem.appClasses;
 
-import com.example.coursesystem.appClasses.Database;
 import com.example.coursesystem.dataStructures.Course;
 import com.example.coursesystem.dataStructures.User;
+import com.example.coursesystem.fxControllers.ManagedCoursesController;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class UserCountTest {
 
