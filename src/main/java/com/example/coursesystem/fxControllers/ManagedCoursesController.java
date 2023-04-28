@@ -140,7 +140,7 @@ public class ManagedCoursesController implements Initializable {
 //        if (selectedCourse != null) {
 //
 //            //ČIA ĮTERPTI VARTOTOJO TEISIŲ VALDYMO LANGO FXML FAILO PAVADINIMĄ
-//            FXMLLoader = new FXMLLoader(Program.class.getResource("--------------------"));
+//            FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("--------------------"));
 //
 //
 //            Parent root = fxmlLoader.load();
