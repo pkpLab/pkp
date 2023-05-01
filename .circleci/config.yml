@@ -41,4 +41,4 @@ workflows:
             filters:
                 branches:
                   only:
-                    - feature-issue-#16-moderuojamu_kursu_tvarkykle
+                    - feature-issue-16-moderuojamu_kursu_tvarkykle
