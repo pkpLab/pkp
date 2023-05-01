@@ -34,3 +34,11 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test
+  zy: # This is the name of the workflow, feel free to change it to better match your workflow.
+      # Inside the workflow, you define the jobs you want to run.
+      jobs:
+        - build-and-test:
+            filters:
+                branches:
+                  only:
+                    - feature-issue-#16-moderuojamu_kursu_tvarkykle
