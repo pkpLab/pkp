@@ -12,7 +12,8 @@ public class User {
         this.user_id = user_id;
     }
     public String getLogin() {
-        return username;
+
+        return username == null ? "" : username;
     }
 
     public void setLogin(String login) {
