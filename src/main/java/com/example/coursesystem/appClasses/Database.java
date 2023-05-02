@@ -389,32 +389,6 @@ public class Database {
         }
     }
 
-    public void setUserPrivileges(int user_id, int course_id) throws SQLException {
-        Connection con = ds.getConnection();
-        try {
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO user_managed_courses(user_id, course_id) VALUES(?, ?)");
-            stmt.setInt(1, user_id);
-            stmt.setInt(2, course_id);
-            stmt.execute();
-        } finally {
-            closeConnection(con);
-        }
-    }
-
-    public void deleteUserPrivileges(int user_id, int course_id) throws SQLException {
-        Connection con = ds.getConnection();
-        try {
-            PreparedStatement stmt = con.prepareStatement("DELETE FROM user_managed_courses WHERE user_id = ? AND course_id = ?");
-            stmt.setInt(1, user_id);
-            stmt.setInt(2, course_id);
-            stmt.execute();
-        } finally {
-            closeConnection(con);
-        }
-    }
-
-
-
 
 }
 
