@@ -58,11 +58,36 @@ public class EditUserRightsControllerTest {
 
     @Test
     public void testRevokeRights() {
-        // Test logic for revoking rights
+        // Prepare the test data
+        Course course = new Course(1, "Test Course", "A test course");
+        UserDisplayItem user = new UserDisplayItem(1, "John", "Doe", "ACME Inc.", 1);
+        controller.initData(course);
+        controller.usersObservable.add(user);
+        controller.selectedUser = user;
+
+        // Simulate revoke rights action
+        controller.revokeRights(null);
+
+        // Verify that the revoke rights logic is executed
+        Mockito.verify(controller.getDatabase()).deleteUserPrivileges(user.getUserId(), course.getCourse_id());
+        assertEquals(0, user.getHasRights());
     }
 
     @Test
     public void testGrantRights() {
-        // Test logic for granting rights
+        // Prepare the test data
+        Course course = new Course(1, "Test Course", "A test course");
+        UserDisplayItem user = new UserDisplayItem(1, "John", "Doe", "ACME Inc.", 0);
+        controller.initData(course);
+        controller.usersObservable.add(user);
+        controller.selectedUser = user;
+
+        // Simulate grant rights action
+        controller.grantRights(null);
+
+        // Verify that the grant rights logic is executed
+        Mockito.verify(controller.getDatabase()).setUserPrivileges(user.getUserId(), course.getCourse_id());
+        assertEquals(1, user.getHasRights());
     }
+
 }
