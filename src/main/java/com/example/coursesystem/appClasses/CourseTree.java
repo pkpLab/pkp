@@ -31,49 +31,18 @@ public class CourseTree {
 
         for (Course course:
                 courses) {
-            TreeItem<TreeDisplayItem> treeItem = new TreeItem<>();
             TreeDisplayItem displayItem = new TreeDisplayItem();
+            TreeItem<TreeDisplayItem> treeItem = new TreeItem<>();
             displayItem.setName(course.getCourseName());
             treeItem.setValue(displayItem);
             treeItemHashtable.put(treeItem, course);
             rootItem.getChildren().add(treeItem);
-            loadFoldersForParent(treeItem, course.getCourse_id(), 0);
         }
     }
 
     public void clearTree() {
         treeItemHashtable.clear();
         treeTableView.setRoot(null);
-    }
-
-    private void loadFoldersForParent(TreeItem<TreeDisplayItem> parentItem, int course_id, int parent_id) throws SQLException {
-        for (Folder folder:
-                Database.getInstance().getFoldersForParent(course_id, parent_id)) {
-            TreeItem<TreeDisplayItem> treeItem = new TreeItem<>();
-            TreeDisplayItem displayItem = new TreeDisplayItem();
-            displayItem.setName(folder.getFolderName());
-            treeItem.setValue(displayItem);
-            treeItemHashtable.put(treeItem, folder);
-            parentItem.getChildren().add(treeItem);
-            loadFilesForFolder(treeItem, folder.getFolder_id());
-            loadFoldersForParent(treeItem, course_id, folder.getFolder_id());
-            parentItem.getValue().addFilesize(treeItem.getValue().getFilesize());
-            parentItem.getValue().addSubfolderCount(treeItem.getValue().getSubfolderCount()+1);
-        }
-    }
-
-    private void loadFilesForFolder(TreeItem<TreeDisplayItem> parentItem, int folder_id) throws SQLException {
-        for (File file:
-                Database.getInstance().getFilesForFolder(folder_id)) {
-            TreeItem<TreeDisplayItem> treeItem = new TreeItem<>();
-            TreeDisplayItem displayItem = new TreeDisplayItem();
-            displayItem.setName(file.getFileName());
-            displayItem.addFilesize(file.getFileSize());
-            parentItem.getValue().addFilesize(file.getFileSize());
-            treeItem.setValue(displayItem);
-            treeItemHashtable.put(treeItem, file);
-            parentItem.getChildren().add(treeItem);
-        }
     }
 }
 
