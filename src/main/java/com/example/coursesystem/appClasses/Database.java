@@ -24,6 +24,17 @@ public class Database {
         ds.setMaxIdle(10);
         ds.setMaxOpenPreparedStatements(100);
     }
+    Database(String url, String username, String password) {
+        ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        ds.setUrl(url);
+        ds.setUsername(username);
+        ds.setPassword(password);
+        ds.setMinIdle(5);
+        ds.setMaxIdle(10);
+        ds.setMaxOpenPreparedStatements(100);
+    }
+
+
 
     public static Database getInstance() {
         if (instance == null) {
@@ -31,6 +42,11 @@ public class Database {
         }
         return instance;
     }
+    static void setInstance(Database newInstance) {
+        instance = newInstance;
+    }
+
+
     private BasicDataSource ds = new BasicDataSource();
 
     public void closeConnection(Connection con) throws SQLException {

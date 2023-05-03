@@ -9,12 +9,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.SQLException;
 
-public class EditUserRightsController {
+public class EditUserRightsController extends Parent {
     @FXML
     public TableView tblUserRights;
     @FXML
@@ -41,8 +43,8 @@ public class EditUserRightsController {
     public Button btnGrantRights;
 
     private Course currentCourse;
-    private ObservableList<UserDisplayItem> usersObservable = FXCollections.observableArrayList();
-    private UserDisplayItem selectedUser;
+    public ObservableList<UserDisplayItem> usersObservable = FXCollections.observableArrayList();
+    public UserDisplayItem selectedUser;
 
     public void initData(Course course) {
         this.currentCourse = course;
@@ -72,6 +74,7 @@ public class EditUserRightsController {
             }
         });
     }
+
     public void revokeRights(ActionEvent actionEvent) {
         if(selectedUser != null) {
             try {
@@ -98,5 +101,17 @@ public class EditUserRightsController {
                 e.printStackTrace();
             }
         }
+    }
+
+    // test stuff below
+    public void initDataTest(Course course)
+    {
+        this.currentCourse = course;
+        lblCourseName.setText(course.getCourseName());
+    }
+
+    @Override
+    public Node getStyleableNode() {
+        return super.getStyleableNode();
     }
 }
