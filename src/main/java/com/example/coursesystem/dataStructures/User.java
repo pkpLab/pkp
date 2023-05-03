@@ -16,6 +16,7 @@ public class User {
         return username == null ? "" : username;
     }
 
+
     public void setLogin(String login) {
         this.username = login;
     }
