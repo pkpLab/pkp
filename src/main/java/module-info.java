@@ -2,6 +2,7 @@ module com.example.coursesystem {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
+    requires javafx.graphics;
     requires spring.context;
     requires spring.web;
     requires mysql.connector.java;
@@ -15,6 +16,7 @@ module com.example.coursesystem {
     requires java.sql;
     requires commons.dbcp;
     requires com.google.gson;
+
 
     opens com.example.coursesystem to javafx.fxml;
     exports com.example.coursesystem;

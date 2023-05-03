@@ -15,6 +15,7 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,6 +28,7 @@ import static org.testfx.util.NodeQueryUtils.hasText;
 public class EditUserRightsControllerTest {
 
     private EditUserRightsController controller;
+    private Database database;
 
     @Start
     public void start(Stage stage) throws SQLException {
@@ -36,22 +38,25 @@ public class EditUserRightsControllerTest {
         // Set up the controller and scene
         controller = new EditUserRightsController();
         //controller.setDatabase(mockDatabase);
-        Scene scene = new Scene(controller, 800, 600);
-        stage.setScene(scene);
-        stage.show();
+        //Scene scene = new Scene(controller, 800, 600);
+        //stage.setScene(scene);
+        //stage.show();
+
     }
 
     @BeforeEach
     public void setUp() throws Exception {
+        database = new Database();
     }
 
     @AfterEach
     public void tearDown() throws Exception {
-        FxToolkit.hideStage();
+        //FxToolkit.hideStage();
     }
 
     @Test
     public void testInitData() {
+
         Course course = new Course();
         course.setCourse_id(1);
         course.setCourseName("Test Course");
@@ -59,6 +64,7 @@ public class EditUserRightsControllerTest {
         controller.initData(course);
 
         verifyThat("#lblCourseName", hasText("Test Course"));
+
     }
 
     @Test
@@ -80,11 +86,11 @@ public class EditUserRightsControllerTest {
 
         // Simulate revoke rights action
         controller.revokeRights(null);
-        Database mockDatabase = Mockito.mock(Database.class);
+        //Database mockDatabase = Mockito.mock(Database.class);
 
         // Verify that the revoke rights logic is executed
-        //Mockito.verify(Database.getInstance().deleteUserPrivileges(user.getUserId(), 1));
-        //assertEquals(0, Database.getInstance().getUserPrivileges(user.getUserId(), 1));
+        //Mockito.verify(database.getInstance().deleteUserPrivileges(user.getUserId(), 1));
+        //assertEquals(0, database.getInstance().getUserPrivileges(user.getUserId(), 1));
     }
 
     @Test
@@ -109,8 +115,15 @@ public class EditUserRightsControllerTest {
         Database mockDatabase = Mockito.mock(Database.class);
 
         // Verify that the grant rights logic is executed
-        //Mockito.verify(Database.getInstance().deleteUserPrivileges(user.getUserId(), 1));
-        //assertEquals(1, Database.getInstance().getUserPrivileges(user.getUserId(), 1));
+        //Mockito.verify(database.getInstance().deleteUserPrivileges(user.getUserId(), 1));
+        //assertEquals(1, database.getInstance().getUserPrivileges(user.getUserId(), 1));
     }
+    @Test
+    public void testClass()
+    {
+
+    }
+
+
 
 }

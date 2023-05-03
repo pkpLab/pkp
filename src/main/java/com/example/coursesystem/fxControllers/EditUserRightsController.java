@@ -104,7 +104,11 @@ public class EditUserRightsController extends Parent {
     }
 
     // test stuff below
-
+    public void initDataTest(Course course)
+    {
+        this.currentCourse = course;
+        lblCourseName.setText(course.getCourseName());
+    }
 
     @Override
     public Node getStyleableNode() {
